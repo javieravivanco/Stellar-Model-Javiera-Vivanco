@@ -12,8 +12,8 @@ def kroupa(m):
     elif m >= 1:
         return 0.08**-0.3 * (0.5/0.08)**-1.3 * (1/0.5)**-2.3 * (m/1)**-2.3
 
-sample = 350000000 
-simulated=1000000
+sample = 35000
+simulated=100
 m0 = np.random.uniform(low=0.08, high=100, size=sample)
 p0 = np.random.uniform(low=0,high=1, size=sample)
 P0 = []
@@ -49,13 +49,13 @@ TMS_values = [10**10 / (mass**2.5) for mass in M0] #year
 ages = [10**10 - year for year in birth_times] #year
 
 
-remnent = []
+remnant = []
 age_rem = []
 MS=[]
 age_ms = []
 for i in range(0,len(ages)):
     if ages[i] > TMS_values[i]:
-        remnent.append(M0[i])
+        remnant.append(M0[i])
         age_rem.append(ages[i])
     else:
         MS.append(M0[i])
@@ -71,21 +71,21 @@ age_WD = []
 shared=[]
 age_shared=[]
 
-for i in range(0,len(remnent)):
-    if remnent[i] < 9:
-        WD.append(remnent[i])
+for i in range(0,len(remnant)):
+    if remnant[i] < 9:
+        WD.append(remnant[i])
         age_WD.append(age_rem[i])
-    if remnent[i] >= 9 and remnent[i] <15:
-        NS.append(remnent[i])
+    if remnant[i] >= 9 and remnant[i] <15:
+        NS.append(remnant[i])
         age_NS.append(age_rem[i])
-    if remnent[i] >= 27.5 and remnent[i] <= 120:
-        BH.append(remnent[i])
+    if remnant[i] >= 27.5 and remnant[i] <= 120:
+        BH.append(remnant[i])
         age_BH.append(age_rem[i])
-    if remnent[i] >= 15 and remnent[i] < 27.5:
-        shared.append(remnent[i])
+    if remnant[i] >= 15 and remnant[i] < 27.5:
+        shared.append(remnant[i])
         age_shared.append(age_rem[i])
-    if remnent[i] >= 60 and remnent[i] <= 120:
-        shared.append(remnent[i])
+    if remnant[i] >= 60 and remnant[i] <= 120:
+        shared.append(remnant[i])
         age_shared.append(age_rem[i])
 
 
