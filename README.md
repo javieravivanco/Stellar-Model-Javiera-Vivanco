@@ -2,7 +2,12 @@
 
 ## Overview
 
-This code allows the user to simulate the evolution of the stars on the Milky Way. The relations and function used for the model are described on Vivanco (2023).
+This code enables users to simulate the evolution of stars within the Milky Way, facilitating the exploration and analysis of its stellar population. The model's relationships and functions are detailed in the work by Vivanco (2023). The code follows the structure outlined in the diagram below.
+
+<p align="center">
+<img src="https://github.com/javieravivanco/Stellar-Model-Javiera-Vivanco/assets/149679459/43cbda24-ad06-4913-b63e-c6fcf2cda0e2" width="350"/>
+</p>
+
 
 ### Initial Mass
 
