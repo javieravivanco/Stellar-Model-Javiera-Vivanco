@@ -1,7 +1,8 @@
+#import libraries
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+#IMF
 def kroupa(m):
     if m < 0.08:
         return m**-0.3
@@ -12,8 +13,9 @@ def kroupa(m):
     elif m >= 1:
         return 0.08**-0.3 * (0.5/0.08)**-1.3 * (1/0.5)**-2.3 * (m/1)**-2.3
 
-sample = 35000
-simulated=100
+#stellar population generation
+sample = 350000000 #<--- number of tested stars
+simulated=1000000 #<--- size of the population
 m0 = np.random.uniform(low=0.08, high=100, size=sample)
 p0 = np.random.uniform(low=0,high=1, size=sample)
 P0 = []
@@ -26,9 +28,11 @@ for M in m0:
     n+=1
 
 
+#to plot the function line
 mass_values = np.logspace(-2, 2, 400)
 imf_values = [kroupa(m) for m in mass_values]
 
+#plot of the function with the masses
 plt.figure(figsize=(6, 6))
 plt.plot(mass_values,imf_values,'--', linewidth=1,color='k')
 plt.scatter(M0,P0,color='grey', s=0.001)
@@ -40,15 +44,13 @@ plt.xlabel('Mass (Solar Mass)')
 plt.ylabel(r'$\xi$(m)')
 plt.show()
 
+#assign age of birth and calculates MS lifetime
 birth_times = [np.random.uniform(0, 10**10) for m in M0] #year
-
-
 TMS_values = [10**10 / (mass**2.5) for mass in M0] #year
-
-
 ages = [10**10 - year for year in birth_times] #year
 
 
+#classify into remnants and MS stars
 remnant = []
 age_rem = []
 MS=[]
@@ -61,7 +63,7 @@ for i in range(0,len(ages)):
         MS.append(M0[i])
         age_ms.append(ages[i])
     
-
+#classify into WD, BH Y NS
 BH=[]
 age_BH = []
 NS=[]
@@ -100,12 +102,13 @@ for i in range(0,len(shared)):
         #print("bh",shared[i])
         age_BH.append(age_shared[i])
 
-
+#final WD mass
 def WD_func(mass):
     if mass < 9:
         M_WD = (0.109 * mass) + 0.394
     return M_WD
 
+#final NS mass
 def NS_func(mass):
     if 9 <= mass <= 13:
         M_NS = 2.24 + 0.508*(mass-14.75) + 0.125*(mass - 14.75)**2 + 0.011*(mass-14.75)**3
@@ -125,6 +128,7 @@ def NS_func(mass):
         return None
     return M_NS
 
+#final BH mass
 def BH_func(mass):
     if 15 <= mass <= 40:
         M_BH_core_low = -2.049 + 0.4140 * mass
@@ -141,11 +145,12 @@ final_mass_WD = [WD_func(m) for m in WD]
 final_mass_BH = [BH_func(m) for m in BH]
 final_mass_NS = [NS_func(m) for m in NS]
 
-
+#not null values
 final_mass_WD = [mass for mass in final_mass_WD if mass is not None]
 final_mass_NS = [mass for mass in final_mass_NS if mass is not None]
 final_mass_BH = [mass for mass in final_mass_BH if mass is not None]
 
+#fraction of stellar bodies
 frac_BH = len(BH)/len(M0)
 frac_WD = len(WD)/len(M0)
 frac_NS = len(NS)/len(M0)
@@ -156,7 +161,7 @@ print('WD:', len(WD), '; Fraction WD: ', frac_WD)
 print('NS:', len(NS), '; Fraction NS: ', frac_NS)
 print('BH:', len(BH), '; Fraction BH: ', frac_BH)
 
-
+#normalized histogram for final masses
 plt.hist(MS, bins=100, histtype='step',density=True, color='blue', alpha=0.5, label='Main Sequence')
 plt.hist(final_mass_WD, bins=25,histtype='step', density=True, color='red', alpha=0.5, label='White Dwarf')
 plt.hist(final_mass_NS, bins=25,histtype='step', density=True, color='green', alpha=0.5, label='Neutron Star')
@@ -168,7 +173,7 @@ plt.ylabel('Counts')
 plt.legend(loc='best', prop={'size': 6.5})
 plt.show()
 
-
+#normalized histogram for ages
 plt.hist(age_ms, bins=30,  histtype='step', density=True, color='blue', alpha=0.5, label='Main Sequence')
 plt.hist(age_WD, bins=30, histtype='step',density=True, color='red', alpha=0.5, label='White Dwarf')
 plt.hist(age_NS, bins=30, histtype='step',density=True, color='green', alpha=0.5, label='Neutron Star')
