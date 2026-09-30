@@ -27,7 +27,7 @@ In this part of the code, it calculates the Main Sequence Lifetime of the stars,
 
 ### End point
 
-To identify which stars are stellar remnants, the code assesses whether a star's total age exceeds the main sequence (MS) lifetime or if it remains within the MS phase. To determine what type of stellar remnant they are, the code uses three functions, describing initial-to-final-mass-relations, para las enanas blancas, estrellas de neutrones y agujeros negros, clasificando los remanentes en su tipo según los rangos de masas descritos por sus respectivas relaciones.
+To identify which stars are stellar remnants, the code assesses whether a star's total age exceeds the main sequence (MS) lifetime or if it remains within the MS phase. To determine what type of stellar remnant they are, the code uses three functions describing initial-to-final mass relations for white dwarfs, neutron stars, and black holes, classifying the remnants into their respective types according to the mass ranges defined by these relations.
 
 **WD_func(m)**: This function receives the white dwarf initial mass, returning the final mass, according to the IFMR for white dwarfs.
 
